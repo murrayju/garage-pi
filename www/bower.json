@@ -1,0 +1,28 @@
+{
+  "name": "garage-pi-web",
+  "version": "0.0.0",
+  "authors": [
+    "Justin Murray <murrayju@addpcs.com>"
+  ],
+  "description": "Web UI for garage-pi",
+  "main": "js/app.js",
+  "license": "MIT",
+  "homepage": "http://github.com/murrayju",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "*",
+    "angular": "*",
+    "jQuery": "*",
+    "bootstrap": "*",
+    "angular-ui-router": "0.2.7",
+    "fastclick": "*",
+    "font-awesome": "*"
+  }
+}

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* angularjs cloaking */
+.ng-cloak {
+    display: none;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 50px 0 90px;
+}
+
+#view {
+    padding: 10px 0 0;
+}
+
+/* Set the fixed height of the footer here */
+footer {
+    height: 60px;
+    background-color: #404040;
+    padding-top: 20px;
+}
+
+
+#alertMsgs {
+	position: fixed;
+	z-index: 999999;
+	width: 300px;
+	opacity: 0.9;
+	right: 12px;
+	bottom: 0px;
+}
+

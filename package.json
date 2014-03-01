@@ -1,0 +1,11 @@
+{
+	"name": "garage-pi",
+	"description": "A raspberryPi garage door opener",
+	"version": "0.0.0",
+	"private": true,
+	"dependencies": {
+		"express": "*",
+		"q": "*",
+		"pi-gpio": "murrayju/pi-gpio"
+	}
+}

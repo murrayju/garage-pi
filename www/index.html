@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>GaragePi</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Prevent this page from being cached -->
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,700,600" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+
+	<body ng-controller="BaseCtrl">
+		<header class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">GaragePi</a>
+				</div>
+
+				<div class="navbar-collapse collapse ng-cloak">
+					<ul class="nav navbar-nav">
+						<li ui-sref-active="active">
+							<a ui-sref="link1">Opener</a>
+						</li>
+					</ul>
+
+					<ul class="ng-cloak nav navbar-nav navbar-right">
+						<msg-dropdown></msg-dropdown>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div id="wrap">
+			<div id="view" class="ng-cloak">
+				<div ui-view></div>
+			</div>
+		</div>
+
+		<div id="alertMsgs">
+			<msg-alerts></msg-alerts>
+		</div>
+
+		<footer>
+			<div class="container">
+				<p class="text-muted credit">Copyright &copy; 2014 Justin Murray.</p>
+			</div>
+		</footer>
+
+		<script src="/bower_components/requirejs/require.js" data-main="js/app"></script>
+	</body>
+</html>
