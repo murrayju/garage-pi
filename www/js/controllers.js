@@ -5,16 +5,21 @@ define([],	function () {
 
 	};
 
-	ctrl.openerCtrl = function ($scope) {
+	ctrl.openerCtrl = ['$scope', '$http', 'msgLogSvc', function ($scope, $http, msg) {
 
-		$scope.openLeft = function () {
-
+		$scope.trigger = function (id) {
+			$http.post('/api/trigger/' + id)
+				.then(function (response) {
+					if (!response.data.error) {
+						msg.success('Door triggered');
+					} else {
+						msg.error(response.data.error);
+					}
+				}, function (err) {
+					msg.error('No response from server');
+				});
 		};
-
-		$scope.openRight = function () {
-
-		};
-	};
+	}];
 
 	return ctrl;
 });
