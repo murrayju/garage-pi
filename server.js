@@ -8,13 +8,13 @@ var config = {
 	door: [
 		{
 			trigger: 26,
-			up: 3,
-			down: 5
+			up: 7,
+			down: 11
 		},
 		{
 			trigger: 24,
-			up: 7,
-			down: 11
+			up: 13,
+			down: 15
 		}
 	]
 };
@@ -111,7 +111,7 @@ function cleanup () {
 		pins.push(gpio.close(config.door[i].up));
 		pins.push(gpio.close(config.door[i].down));
 	}
-	process.exit();
+	q.all(pins).then(process.exit);
 }
 
 process.on('SIGINT', cleanup);
