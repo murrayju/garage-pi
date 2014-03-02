@@ -5,7 +5,7 @@ define([],	function () {
 
 	};
 
-	ctrl.openerCtrl = ['$scope', '$http', 'msgLogSvc', function ($scope, $http, msg) {
+	ctrl.openerCtrl = ['$scope', '$http', '$interval', 'msgLogSvc', function ($scope, $http, $interval, msg) {
 
 		$scope.trigger = function (id) {
 			$http.post('/api/trigger/' + id)
@@ -19,6 +19,17 @@ define([],	function () {
 					msg.error('No response from server');
 				});
 		};
+
+		$interval(function () {
+			$http.get('/api/status')
+				.then(function (response) {
+					if (response.data.error) {
+						msg.error(response.data.error);
+					} else {
+						$scope.status = response.data.data;
+					}
+				});
+		}, 1000);
 	}];
 
 	return ctrl;
