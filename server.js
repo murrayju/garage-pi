@@ -73,31 +73,29 @@ app.post('/api/trigger/:id', function (req, res) {
 
 // The api call to get status feedback
 app.get('/api/status', function (req, res) {
-	var data = [];
 	return q.all(pins)
 		.then(function () {
-			var promises = [];
-			var i, door, d;
+			var i, data = [];
+			var promise;
 			for (i = 0; i < config.door.length; i++) {
 				(function () {
+					var doorInfo = {};
 					var door = config.door[i];
-					data.push({});
-					var d = data[i];
-					promises.push(
-						gpio.read(door.up)
-							.then(function (val) {
-								return d.up = !!val;
-							}));
-					promises.push(
-						gpio.read(door.down)
-							.then(function (val) {
-								return d.down = !!val;
-							}));
+					data.push(doorInfo);
+					promise = q.when(promise, function () {
+						return gpio.read(door.up);
+					}).then(function (val) {
+						return doorInfo.up = !!val;
+					}).then(function () {
+						return gpio.read(door.down);
+					}).then(function (val) {
+						return doorInfo.down = !!val;
+					});
 				})();
 			}
-			return q.all(promises).then(function() { return data; });
+			return promise.then(function() { return data; });
 		})
-		.then(function (d) {
+		.then(function (data) {
 			return res.send({error: false, data: data});
 		}, function (err) {
 			return res.send({error: err || 'Unkown error'});
