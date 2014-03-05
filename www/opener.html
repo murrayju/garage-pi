@@ -1,23 +1,31 @@
 <div class="container" ng-controller="openerCtrl">
 	<h1>Garage Door {{doorNum}}</h1>
 
-	<button type="button" class="btn btn-lg btn-primary" ng-click="trigger()">Trigger Door</button>
-
-	<h3>
-		<span class="label label-danger" ng-show="doorUnknown()">
+	<button type="button" class="btn btn-lg btn-primary" ng-click="trigger()">
+		<span ng-show="doorClosed()">
+			<i class="fa fa-toggle-up"></i>
+			Open
+		</span>
+		<span ng-show="doorOpen()">
+			<i class="fa fa-toggle-down"></i>
+			Close
+		</span>
+		<span ng-show="doorUnknown()">
 			<i class="fa fa-sort"></i>
+			Trigger
+		</span>
+		Door
+	</button>
+
+	<p>
+		<span class="text-danger" ng-show="doorUnknown()">
 			The door is in motion, or in an unknown state
 		</span>
-		<span class="label label-warning" ng-show="doorOpen()">
-			<i class="fa fa-toggle-up"></i>
+		<span class="text-warning" ng-show="doorOpen()">
 			The door is fully open
 		</span>
-		<span class="label label-success" ng-show="doorClosed()">
-			<i class="fa fa-toggle-down"></i>
+		<span class="text-success" ng-show="doorClosed()">
 			The door is fully closed
 		</span>
-	</h3>
-	<div class="well">
-		{{status[doorNum] | json}}
-	</div>
+	</p>
 </div>
