@@ -5,8 +5,8 @@ define([], function () {
 		$urlRouterProvider.otherwise("/");
 
 		$stateProvider
-			.state('opener', {
-				url: '/',
+			.state('door', {
+				url: '/{id}',
 				templateUrl: 'opener.html'
 			});
 	}];
