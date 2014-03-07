@@ -23,10 +23,10 @@ requirejs.config({
 
 // This is the main application entry point
 // bootstraps the angularjs app with the dom
-requirejs(['angular', 'configuration', 'controllers', 'fastclick', 'msgLog', 'angular.ui.router', 'jquery.bootstrap'], function (angular, config, ctrl, fastclick) {
+requirejs(['angular', 'configuration', 'controllers', 'fastclick', 'progress', 'msgLog', 'angular.ui.router', 'jquery.bootstrap'], function (angular, config, ctrl, fastclick) {
 	angular.element().ready(function () {
 
-		var mod = angular.module('MainAppModule', ['msgLog', 'ui.router'])
+		var mod = angular.module('MainAppModule', ['progress', 'msgLog', 'ui.router'])
 			.config(config)
 			.controller(ctrl);
 

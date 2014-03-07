@@ -1,0 +1,14 @@
+<div class="progress" ng-class="{'progress-striped': striped}">
+	<div
+		class="progress-bar"
+		ng-class="skinClass()"
+		role="progressbar"
+		aria-valuenow="{{percent}}"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		style="width: {{percent}}%">
+		<span class="sr-only">
+			{{percent}}% Complete
+		</span>
+	</div>
+</div>
