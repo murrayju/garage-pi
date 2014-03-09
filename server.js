@@ -1,7 +1,9 @@
 var gpio = require("pi-gpio"),
-    express = require('express'),
 	q = require("q"),
-    app = express();
+    express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
 
 // Define our pin names
 var config = {
@@ -22,10 +24,12 @@ var config = {
 // Set up the io pins
 var i;
 var pins = [];
+var status = [];
 for (i=0; i<config.door.length; i++) {
 	pins.push(gpio.open(config.door[i].trigger, "out"));
 	pins.push(gpio.open(config.door[i].up, "in"));
 	pins.push(gpio.open(config.door[i].down, "in"));
+    status.push({});
 }
 
 // Configure the web app
@@ -78,7 +82,7 @@ app.get('/api/status', function (req, res) {
 			var i, data = [];
 			var promise;
 			for (i = 0; i < config.door.length; i++) {
-				(function () {
+				(function (i) {
 					var doorInfo = {};
 					var door = config.door[i];
 					data.push(doorInfo);
@@ -91,7 +95,7 @@ app.get('/api/status', function (req, res) {
 					}).then(function (val) {
 						return doorInfo.down = !!val;
 					});
-				})();
+				})(i);
 			}
 			return promise.then(function() { return data; });
 		})
@@ -102,8 +106,52 @@ app.get('/api/status', function (req, res) {
 		});
 });
 
+io.sockets.on('connection', function (socket) {
+    socket.emit('status', status);
+});
+
+
+// Monitor the input status
+var statmon = setInterval(function () {
+	q.all(pins)
+		.then(function () {
+            var i, promise, changed = false;
+			for (i = 0; i < config.door.length; i++) {
+				(function (i) {
+                    var door = config.door[i];
+                    var stat = status[i];
+
+                    promise = q.when(promise, function () {
+						return gpio.read(door.up);
+					}).then(function (val) {
+                        var up = !!val;
+                        if (up !== stat.up) {
+                            changed = true;
+                            stat.up = up;
+                        }
+					}).then(function () {
+						return gpio.read(door.down);
+					}).then(function (val) {
+                        var down = !!val;
+                        if (down !== stat.down) {
+                            changed = true;
+                            stat.down = down;
+                        }
+					});
+				})(i);
+			}
+			return promise.then(function() { 
+                if (changed) {
+                    io.sockets.emit('status', status);
+                }
+            });
+		});
+
+}, 250);
+
 function cleanup () {
 	console.log("Cleaning up...");
+    clearInterval(statmon);
 	var i;
 	var pins = [];
 	for (i=0; i<config.door.length; i++) {
@@ -117,4 +165,4 @@ function cleanup () {
 process.on('SIGINT', cleanup);
 process.on('SIGTERM', cleanup);
 
-app.listen(80);
+server.listen(80);

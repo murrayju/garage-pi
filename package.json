@@ -6,6 +6,7 @@
 	"dependencies": {
 		"express": "*",
 		"q": "*",
-		"pi-gpio": "murrayju/pi-gpio"
+		"pi-gpio": "murrayju/pi-gpio",
+        "socket.io": "*"
 	}
 }

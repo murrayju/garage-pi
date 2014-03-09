@@ -5,9 +5,13 @@ define([],	function () {
 
 	};
 
-	ctrl.openerCtrl = ['$scope', '$http', '$interval', '$stateParams', 'msgLogSvc', function ($scope, $http, $interval, $stateParams, msg) {
+	ctrl.openerCtrl = ['$scope', '$http', '$interval', '$stateParams', 'socket', 'msgLogSvc', function ($scope, $http, $interval, $stateParams, socket, msg) {
         $scope.doorNum = parseInt($stateParams.id, 10) || 0;
         $scope.status = [];
+
+        var trackProgress = function () {
+            var opening = $scope.doorClosed();
+        };
 
 		$scope.trigger = function () {
 			$http.post('/api/trigger/' + $scope.doorNum)
@@ -34,16 +38,9 @@ define([],	function () {
             return !($scope.doorOpen() || $scope.doorClosed());
         };
 
-		$interval(function () {
-			$http.get('/api/status')
-				.then(function (response) {
-					if (response.data.error) {
-						msg.debug(response.data.error);
-					} else {
-						$scope.status = response.data.data;
-					}
-				});
-		}, 1000);
+        socket.on('status', function (data) {
+            $scope.status = data;
+        });
 	}];
 
 	return ctrl;

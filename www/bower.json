@@ -23,6 +23,7 @@
     "bootstrap": "*",
     "angular-ui-router": "0.2.7",
     "fastclick": "*",
-    "font-awesome": "*"
+    "font-awesome": "*",
+    "socket.io-client": "~0.9.16"
   }
 }
