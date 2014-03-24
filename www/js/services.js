@@ -1,7 +1,7 @@
-define(['io'],	function (io){
-    var svc = {};
+define(['io', 'angular'],	function (io, angular){
+    var service = {};
 
-    svc.socket = function ($rootScope) {
+    service.socket = function ($rootScope) {
         var socket = io.connect();
         return {
             on: function (eventName, callback) {
@@ -25,5 +25,18 @@ define(['io'],	function (io){
         };
     };
 
-    return svc;
+    service.status = function(socket) {
+        var status = [];
+
+        socket.on('status', function (data) {
+            status.length = 0;
+            angular.forEach(data, function (stat) {
+                status.push(stat);
+            });
+        });
+
+        return status;
+    };
+
+    return service;
 });
