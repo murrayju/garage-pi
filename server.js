@@ -9,14 +9,14 @@ var gpio = require("pi-gpio"),
 var config = {
 	door: [
 		{
-			trigger: 26,
-			up: 7,
-			down: 11
+			trigger: 19,
+			up: 23,
+			down: 7
 		},
 		{
-			trigger: 24,
-			up: 13,
-			down: 15
+			trigger: 21,
+			up: 11,
+			down: 13
 		}
 	]
 };
