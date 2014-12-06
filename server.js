@@ -2,8 +2,8 @@ var gpio = require("pi-gpio"),
 	q = require("q"),
     express = require('express'),
     app = express(),
-    server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    server = require('http').Server(app),
+    io = require('socket.io')(server);
 
 // Define our pin names
 var config = {
@@ -106,7 +106,7 @@ app.get('/api/status', function (req, res) {
 		});
 });
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
     socket.emit('status', status);
 });
 
@@ -142,7 +142,7 @@ var statmon = setInterval(function () {
 			}
 			return promise.then(function() { 
                 if (changed) {
-                    io.sockets.emit('status', status);
+                    io.emit('status', status);
                 }
             });
 		});

@@ -9,7 +9,7 @@ requirejs.config({
 		angular: "/bower_components/angular/angular.min",
 		'angular.ui.router': "/bower_components/angular-ui-router/release/angular-ui-router",
 		fastclick: "/bower_components/fastclick/lib/fastclick",
-        io: "/bower_components/socket.io-client/dist/socket.io.min"
+        io: "/socket.io/socket.io"
 	},
 
 	shim: {

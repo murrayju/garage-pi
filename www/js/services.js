@@ -2,7 +2,7 @@ define(['io', 'angular'],	function (io, angular){
     var service = {};
 
     service.socket = function ($rootScope) {
-        var socket = io.connect();
+        var socket = io();
         return {
             on: function (eventName, callback) {
                 socket.on(eventName, function () {  
