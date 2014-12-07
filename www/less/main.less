@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* angularjs cloaking */
+.ng-cloak {
+    display: none;
+}
+
+#alertMsgs {
+	position: fixed;
+	z-index: 999999;
+	width: 300px;
+	opacity: 0.9;
+	right: 12px;
+	bottom: 0px;
+}
+
+/* animations */
+.garage-holder {
+    overflow: hidden;
+
+	.garage {
+		position: relative;
+		width: 100%;
+		height: 500px;    
+
+		&.open {
+			top: -500px;
+		}
+
+		&.opening {
+			-webkit-animation-direction: normal;
+			-webkit-animation-name: garage;
+			-webkit-animation-duration: 11s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: forwards;
+		}
+
+		&.closing {
+			-webkit-animation-direction: reverse;
+			-webkit-animation-name: garage;
+			-webkit-animation-duration: 11s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: backwards;
+		}
+
+		&.opening, &.closing {
+			.garage-panel {
+				-webkit-animation-duration: 11s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-delay: 0s;
+				-webkit-animation-direction: inherit;
+				-webkit-animation-fill-mode: inherit;
+			}
+			
+			.panel1 {
+				-webkit-animation-name: panel1;
+			}
+
+			.panel2 {
+				-webkit-animation-name: panel2;
+			}
+
+			.panel3 {
+				-webkit-animation-name: panel3;
+			}
+
+			.panel4 {
+				-webkit-animation-name: panel4;
+			}
+		}
+
+		.garage-panel {
+			width:100%;
+			height:25%;
+			border:5px solid #777;
+			box-shadow:inset 0 0 15px #555;
+			-webkit-transform-origin: 50% 100%;
+		}
+	}
+}
+
+
+@-webkit-keyframes garage {
+    0% {
+       top: 0;
+    }
+    25% {
+       top: -125px;
+    }
+    50% {
+       top: -250px;
+    }
+    75% {
+       top: -375px;
+    }
+    100% {
+       top: -500px;
+    }
+}
+@-webkit-keyframes panel1 {
+    0% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    25%, 50%, 75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel2 {
+    0%, 25% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    50%, 75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel3 {
+    0%, 25%, 50% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel4 {
+    0%, 25%, 50%, 75% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
