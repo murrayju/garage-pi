@@ -29,12 +29,26 @@ garage-door {
 	display: block;
 	.garage-holder {
 		overflow: hidden;
+		position: relative;
 		margin-bottom: 15px;
+
+		img.inside {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 0;
+		}
 
 		.garage {
 			position: relative;
+			z-index: 1;
 			width: 100%;
-			height: @garageHeight;    
+			height: @garageHeight;
+			background-color: fade(#000, 50%);
 
 			&.open {
 				top: -@garageHeight;
@@ -87,6 +101,7 @@ garage-door {
 			.garage-panel {
 				width: 100%;
 				height: @panelHeight;
+				background-color: #FFF;
 				border: 5px solid #777;
 				box-shadow: inset 0 0 15px #555;
 				-webkit-transform-origin: 50% 100%;

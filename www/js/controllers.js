@@ -5,11 +5,13 @@ define([],	function () {
         $scope.doors = [
             {
                 name: 'Weight Bench',
-                number: 0
+                number: 0,
+                img: 'img/left.png'
             },
             {
                 name: 'Where Russell parked',
-                number: 1
+                number: 1,
+                img: 'img/right.png'
             }
         ];
 	};
