@@ -8,7 +8,7 @@ define([],	function () {
                 number: 0
             },
             {
-                name: 'Where Russell used to park',
+                name: 'Where Russell parked',
                 number: 1
             }
         ];
