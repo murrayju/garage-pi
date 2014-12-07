@@ -21,8 +21,6 @@
     "angular": "*",
     "jQuery": "*",
     "bootstrap": "*",
-    "angular-ui-router": "0.2.7",
-    "fastclick": "*",
     "font-awesome": "*"
   }
 }

@@ -64,7 +64,11 @@ div.garage-panel {
     -webkit-transform-origin: 50% 100%;
 }
 
-div.up {
+div.garage.open {
+	top: -500px;
+}
+
+div.garage.opening {
     -webkit-animation-direction: normal;
     -webkit-animation-name: garage;
     -webkit-animation-duration: 11s;
@@ -73,7 +77,7 @@ div.up {
     -webkit-animation-fill-mode: forwards;
 }
 
-div.down {
+div.garage.closing {
     -webkit-animation-direction: reverse;
     -webkit-animation-name: garage;
     -webkit-animation-duration: 11s;
@@ -82,7 +86,7 @@ div.down {
     -webkit-animation-fill-mode: backwards;
 }
 
-div.up > div.garage-panel, div.down > div.garage-panel {
+div.garage.opening > div.garage-panel, div.garage.closing > div.garage-panel {
     -webkit-animation-duration: 11s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-delay: 0s;
@@ -90,19 +94,19 @@ div.up > div.garage-panel, div.down > div.garage-panel {
     -webkit-animation-fill-mode: inherit;
 }
 
-div.up > div.panel1, div.down > div.panel1 {
+div.garage.opening > div.panel1, div.garage.closing > div.panel1 {
     -webkit-animation-name: panel1;
 }
 
-div.up > div.panel2, div.down > div.panel2 {
+div.garage.opening > div.panel2, div.garage.closing > div.panel2 {
     -webkit-animation-name: panel2;
 }
 
-div.up > div.panel3, div.down > div.panel3 {
+div.garage.opening > div.panel3, div.garage.closing > div.panel3 {
     -webkit-animation-name: panel3;
 }
 
-div.up > div.panel4, div.down > div.panel4 {
+div.garage.opening > div.panel4, div.garage.closing > div.panel4 {
     -webkit-animation-name: panel4;
 }
 

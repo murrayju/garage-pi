@@ -5,10 +5,7 @@ requirejs.config({
 
 	paths: {
 		jquery: "/bower_components/jQuery/dist/jquery.min",
-		'jquery.bootstrap': "/bower_components/bootstrap/dist/js/bootstrap.min",
 		angular: "/bower_components/angular/angular.min",
-		'angular.ui.router': "/bower_components/angular-ui-router/release/angular-ui-router",
-		fastclick: "/bower_components/fastclick/lib/fastclick",
         io: "/socket.io/socket.io"
 	},
 
@@ -16,24 +13,20 @@ requirejs.config({
 		angular: {
 			deps: ['jquery'],
 			exports: 'angular'
-		},
-		'angular.ui.router': ['angular'],
-		'jquery.bootstrap': ['jquery']
+		}
 	}
 });
 
 // This is the main application entry point
 // bootstraps the angularjs app with the dom
-requirejs(['angular', 'configuration', 'controllers', 'directives', 'services', 'fastclick', 'progress', 'msgLog', 'angular.ui.router', 'jquery.bootstrap'], function (angular, config, ctrl, dir, svc, fastclick) {
+requirejs(['angular', 'controllers', 'directives', 'services', 'msgLog'], function (angular, ctrl, dir, svc) {
 	angular.element().ready(function () {
 
-		var mod = angular.module('MainAppModule', ['progress', 'msgLog', 'ui.router'])
-			.config(config)
+		var mod = angular.module('MainAppModule', ['msgLog'])
             .factory(svc)
 			.controller(ctrl)
 			.directive(dir);
 
 		angular.bootstrap(document, [mod.name]);
-		fastclick.attach(document.body);
 	});
 });

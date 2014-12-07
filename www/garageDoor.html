@@ -1,13 +1,5 @@
 <div class="col-sm-6">
 	<h2>{{door.name}}</h2>
-	<div class="garage-holder">
-		<div class="garage" ng-class="{'up':status.opening,'down':status.closing}">
-			<div class="garage-panel panel1"></div>
-			<div class="garage-panel panel2"></div>
-			<div class="garage-panel panel3"></div>
-			<div class="garage-panel panel4"></div>
-		</div>
-	</div>
 	<button class="btn btn-success btn-lg" ng-click="trigger()">
 		<span ng-show="doorClosed()">
 			<i class="fa fa-toggle-up"></i>
@@ -23,4 +15,23 @@
 		</span>
 		Door
 	</button>
+	<p>
+		<span class="text-danger" ng-show="doorUnknown()">
+			The door is in motion, or in an unknown state
+		</span>
+		<span class="text-warning" ng-show="doorOpen()">
+			The door is fully open
+		</span>
+		<span class="text-success" ng-show="doorClosed()">
+			The door is fully closed
+		</span>
+	</p>
+	<div class="garage-holder">
+		<div class="garage" ng-class="{ open: status.up, opening: status.opening, closing: status.closing }">
+			<div class="garage-panel panel1"></div>
+			<div class="garage-panel panel2"></div>
+			<div class="garage-panel panel3"></div>
+			<div class="garage-panel panel4"></div>
+		</div>
+	</div>
 </div>
