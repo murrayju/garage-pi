@@ -4,10 +4,6 @@ define([], function () {
 
 		$urlRouterProvider.otherwise("/");
 
-		$stateProvider
-			.state('door', {
-				url: '/{id}',
-				templateUrl: 'opener.html'
-			});
+		
 	}];
 });

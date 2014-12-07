@@ -45,3 +45,113 @@ footer {
 	bottom: 0px;
 }
 
+/* animations */
+div.garage-holder {
+    overflow: hidden;
+}
+
+div.garage {
+    position: relative;
+    width: 100%;
+    height: 500px;    
+}
+
+div.garage-panel {
+    width:100%;
+    height:25%;
+    border:5px solid #777;
+    box-shadow:inset 0 0 15px #555;
+    -webkit-transform-origin: 50% 100%;
+}
+
+div.up {
+    -webkit-animation-direction: normal;
+    -webkit-animation-name: garage;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+div.down {
+    -webkit-animation-direction: reverse;
+    -webkit-animation-name: garage;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-fill-mode: backwards;
+}
+
+div.up > div.garage-panel, div.down > div.garage-panel {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-direction: inherit;
+    -webkit-animation-fill-mode: inherit;
+}
+
+div.up > div.panel1, div.down > div.panel1 {
+    -webkit-animation-name: panel1;
+}
+
+div.up > div.panel2, div.down > div.panel2 {
+    -webkit-animation-name: panel2;
+}
+
+div.up > div.panel3, div.down > div.panel3 {
+    -webkit-animation-name: panel3;
+}
+
+div.up > div.panel4, div.down > div.panel4 {
+    -webkit-animation-name: panel4;
+}
+
+@-webkit-keyframes garage {
+    0% {
+       top: 0;
+    }
+    25% {
+       top: -125px;
+    }
+    50% {
+       top: -250px;
+    }
+    75% {
+       top: -375px;
+    }
+    100% {
+       top: -500px;
+    }
+}
+@-webkit-keyframes panel1 {
+    0% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    25%, 50%, 75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel2 {
+    0%, 25% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    50%, 75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel3 {
+    0%, 25%, 50% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    75%, 100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}
+@-webkit-keyframes panel4 {
+    0%, 25%, 50%, 75% {
+       -webkit-transform: perspective(300px) rotateX(0deg);
+    }
+    100% {
+       -webkit-transform: perspective(300px) rotateX(90deg);
+    }
+}

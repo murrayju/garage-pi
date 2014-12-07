@@ -24,13 +24,14 @@ requirejs.config({
 
 // This is the main application entry point
 // bootstraps the angularjs app with the dom
-requirejs(['angular', 'configuration', 'controllers', 'services', 'fastclick', 'progress', 'msgLog', 'angular.ui.router', 'jquery.bootstrap'], function (angular, config, ctrl, svc, fastclick) {
+requirejs(['angular', 'configuration', 'controllers', 'directives', 'services', 'fastclick', 'progress', 'msgLog', 'angular.ui.router', 'jquery.bootstrap'], function (angular, config, ctrl, dir, svc, fastclick) {
 	angular.element().ready(function () {
 
 		var mod = angular.module('MainAppModule', ['progress', 'msgLog', 'ui.router'])
 			.config(config)
             .factory(svc)
-			.controller(ctrl);
+			.controller(ctrl)
+			.directive(dir);
 
 		angular.bootstrap(document, [mod.name]);
 		fastclick.attach(document.body);

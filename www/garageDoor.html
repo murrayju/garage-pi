@@ -1,0 +1,26 @@
+<div class="col-sm-6">
+	<h2>{{door.name}}</h2>
+	<div class="garage-holder">
+		<div class="garage" ng-class="{'up':door.opening,'down':door.closing}">
+			<div class="garage-panel panel1"></div>
+			<div class="garage-panel panel2"></div>
+			<div class="garage-panel panel3"></div>
+			<div class="garage-panel panel4"></div>
+		</div>
+	</div>
+	<button class="btn btn-success btn-lg" ng-click="trigger()">
+		<span ng-show="doorClosed()">
+			<i class="fa fa-toggle-up"></i>
+			Open
+		</span>
+		<span ng-show="doorOpen()">
+			<i class="fa fa-toggle-down"></i>
+			Close
+		</span>
+		<span ng-show="doorUnknown()">
+			<i class="fa fa-sort"></i>
+			Trigger
+		</span>
+		Door
+	</button>
+</div>
