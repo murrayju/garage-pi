@@ -77,33 +77,7 @@ app.post('/api/trigger/:id', function (req, res) {
 
 // The api call to get status feedback
 app.get('/api/status', function (req, res) {
-	return q.all(pins)
-		.then(function () {
-			var i, data = [];
-			var promise;
-			for (i = 0; i < config.door.length; i++) {
-				(function (i) {
-					var doorInfo = {};
-					var door = config.door[i];
-					data.push(doorInfo);
-					promise = q.when(promise, function () {
-						return gpio.read(door.up);
-					}).then(function (val) {
-						return doorInfo.up = !!val;
-					}).then(function () {
-						return gpio.read(door.down);
-					}).then(function (val) {
-						return doorInfo.down = !!val;
-					});
-				})(i);
-			}
-			return promise.then(function() { return data; });
-		})
-		.then(function (data) {
-			return res.send({error: false, data: data});
-		}, function (err) {
-			return res.send({error: err || 'Unkown error'});
-		});
+    return res.send(status);
 });
 
 io.on('connection', function (socket) {
@@ -127,7 +101,14 @@ var statmon = setInterval(function () {
                         var up = !!val;
                         if (up !== stat.up) {
                             changed = true;
+                            var wasUp = stat.up;
                             stat.up = up;
+                            if (!up && (wasUp === true)) {
+                                stat.closing = true;
+                            } else if (up) {
+                                stat.opening = false;
+                                stat.closing = false;
+                            }
                         }
 					}).then(function () {
 						return gpio.read(door.down);
@@ -135,7 +116,14 @@ var statmon = setInterval(function () {
                         var down = !!val;
                         if (down !== stat.down) {
                             changed = true;
+                            var wasDown = stat.down;
                             stat.down = down;
+                            if (!down && (wasDown === true)) {
+                                stat.opening = true;
+                            } else {
+                                stat.closing = false;
+                                stat.opening = false;
+                            }
                         }
 					});
 				})(i);

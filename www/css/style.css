@@ -67,7 +67,7 @@ div.garage-panel {
 div.up {
     -webkit-animation-direction: normal;
     -webkit-animation-name: garage;
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 11s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-delay: 0s;
     -webkit-animation-fill-mode: forwards;
@@ -76,14 +76,14 @@ div.up {
 div.down {
     -webkit-animation-direction: reverse;
     -webkit-animation-name: garage;
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 11s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-delay: 0s;
     -webkit-animation-fill-mode: backwards;
 }
 
 div.up > div.garage-panel, div.down > div.garage-panel {
-    -webkit-animation-duration: 1s;
+    -webkit-animation-duration: 11s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-delay: 0s;
     -webkit-animation-direction: inherit;

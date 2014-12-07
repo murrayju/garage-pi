@@ -25,18 +25,24 @@ define(['io', 'angular'],	function (io, angular){
         };
     };
 
-    service.status = function(socket) {
+    service.status = ['$q', 'socket', function($q, socket) {
         var status = [];
+        var defer = $q.defer();
+        status.$promise = defer.promise;
 
         socket.on('status', function (data) {
-            status.length = 0;
-            angular.forEach(data, function (stat) {
-                status.push(stat);
-            });
+            if (status.length != data.length) {
+                angular.copy(data, status);
+                defer.resolve(status);
+            } else {
+                angular.forEach(data, function (stat, i) {
+                    angular.copy(stat, status[i]);
+                });
+            }
         });
 
         return status;
-    };
+    }];
 
     return service;
 });
