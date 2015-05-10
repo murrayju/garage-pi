@@ -4,7 +4,7 @@ requirejs({
 	waitSeconds: 0,
 
 	paths: {
-		'coffee-script': '/bower_components/coffee-script/extra/coffee-script',
+		'coffee-script': '/bower_components/coffee-script/extras/coffee-script',
 		cs: '/bower_components/require-cs/cs',
         less: "/bower_components/require-less/less",
         lessc: "/bower_components/require-less/lessc",

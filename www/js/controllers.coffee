@@ -8,6 +8,6 @@ define [], () ->
 		) ->
 			$scope.config = {}
 
-			$http.get('/api/config').then (config) ->
-				angular.copy($scope.config, config)
+			$http.get('/api/config').then (response) ->
+				angular.copy(response.data, $scope.config)
 	]

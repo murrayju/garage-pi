@@ -90,10 +90,10 @@ var statmon = setInterval(function () {
 						return gpio.read(door.pins.up);
 					}).then(function (val) {
                         var up = !!val;
-                        if (up !== stat.pins.up) {
+                        if (up !== stat.up) {
                             changed = true;
-                            var wasUp = stat.pins.up;
-                            stat.pins.up = up;
+                            var wasUp = stat.up;
+                            stat.up = up;
                             if (!up && (wasUp === true)) {
                                 stat.closing = true;
                             } else if (up) {
@@ -105,10 +105,10 @@ var statmon = setInterval(function () {
 						return gpio.read(door.pins.down);
 					}).then(function (val) {
                         var down = !!val;
-                        if (down !== stat.pins.down) {
+                        if (down !== stat.down) {
                             changed = true;
-                            var wasDown = stat.pins.down;
-                            stat.pins.down = down;
+                            var wasDown = stat.down;
+                            stat.down = down;
                             if (!down && (wasDown === true)) {
                                 stat.opening = true;
                             } else {
