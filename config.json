@@ -1,0 +1,22 @@
+{
+  "doors": [
+    {
+      "name": "Weight Bench",
+      "img": "img/left.png",
+      "pins": {
+        "trigger": 19,
+        "up": 23,
+        "down": 7
+      }
+    },
+    {
+      "name": "Where Russell Parked",
+      "img": "img/right.png",
+      "pins": {
+        "trigger": 21,
+        "up": 11,
+        "down": 13
+      }
+    }
+  ]
+}

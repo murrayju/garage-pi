@@ -21,7 +21,7 @@
 	<body ng-controller="BaseCtrl">
 		<div class="container">
 			<div class="row">
-				<garage-door ng-repeat="door in doors" door="door"></garage-door>
+				<garage-door ng-repeat="door in config.doors" door="door" index="$index"></garage-door>
 			</div>
 		</div>
 
@@ -29,6 +29,6 @@
 			<msg-alerts></msg-alerts>
 		</div>
 
-		<script src="/bower_components/requirejs/require.js" data-main="js/app"></script>
+		<script src="/bower_components/requirejs/require.js" data-main="js/main"></script>
 	</body>
 </html>

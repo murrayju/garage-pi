@@ -5,30 +5,16 @@ var gpio = require("pi-gpio"),
     server = require('http').Server(app),
     io = require('socket.io')(server);
 
-// Define our pin names
-var config = {
-	door: [
-		{
-			trigger: 19,
-			up: 23,
-			down: 7
-		},
-		{
-			trigger: 21,
-			up: 11,
-			down: 13
-		}
-	]
-};
+var config = require('./config.json');
 
 // Set up the io pins
 var i;
 var pins = [];
 var status = [];
-for (i=0; i<config.door.length; i++) {
-	pins.push(gpio.open(config.door[i].trigger, "out"));
-	pins.push(gpio.open(config.door[i].up, "in"));
-	pins.push(gpio.open(config.door[i].down, "in"));
+for (i=0; i<config.doors.length; i++) {
+	pins.push(gpio.open(config.doors[i].pins.trigger, "out"));
+	pins.push(gpio.open(config.doors[i].pins.up, "in"));
+	pins.push(gpio.open(config.doors[i].pins.down, "in"));
     status.push({});
 }
 
@@ -41,14 +27,14 @@ app.configure(function(){
 
 // The api call to trigger door open/close
 app.post('/api/trigger/:id', function (req, res) {
-	var door = config.door[req.params.id];
+	var door = config.doors[req.params.id];
 	if (door) {
 		console.log('Request to trigger door: ' + req.params.id);
 
 		// Let's open the door
 		return q.all(pins)
 			.then(function () {
-				return gpio.write(door.trigger, true);
+				return gpio.write(door.pins.trigger, true);
 			})
 			.then(function () {
 				var deferred = q.defer();
@@ -56,7 +42,7 @@ app.post('/api/trigger/:id', function (req, res) {
 				// Press the button in for 1 second
 				setTimeout(function () {
 					deferred.resolve(
-						gpio.write(door.trigger, false)
+						gpio.write(door.pins.trigger, false)
 					);
 				}, 1000);
 
@@ -80,6 +66,11 @@ app.get('/api/status', function (req, res) {
     return res.send(status);
 });
 
+// Share the config with the front end
+app.get('/api/config', function (req, res) {
+	return res.send(config);
+});
+
 io.on('connection', function (socket) {
     socket.emit('status', status);
 });
@@ -90,19 +81,19 @@ var statmon = setInterval(function () {
 	q.all(pins)
 		.then(function () {
             var i, promise, changed = false;
-			for (i = 0; i < config.door.length; i++) {
+			for (i = 0; i < config.doors.length; i++) {
 				(function (i) {
-                    var door = config.door[i];
+                    var door = config.doors[i];
                     var stat = status[i];
 
                     promise = q.when(promise, function () {
-						return gpio.read(door.up);
+						return gpio.read(door.pins.up);
 					}).then(function (val) {
                         var up = !!val;
-                        if (up !== stat.up) {
+                        if (up !== stat.pins.up) {
                             changed = true;
-                            var wasUp = stat.up;
-                            stat.up = up;
+                            var wasUp = stat.pins.up;
+                            stat.pins.up = up;
                             if (!up && (wasUp === true)) {
                                 stat.closing = true;
                             } else if (up) {
@@ -111,13 +102,13 @@ var statmon = setInterval(function () {
                             }
                         }
 					}).then(function () {
-						return gpio.read(door.down);
+						return gpio.read(door.pins.down);
 					}).then(function (val) {
                         var down = !!val;
-                        if (down !== stat.down) {
+                        if (down !== stat.pins.down) {
                             changed = true;
-                            var wasDown = stat.down;
-                            stat.down = down;
+                            var wasDown = stat.pins.down;
+                            stat.pins.down = down;
                             if (!down && (wasDown === true)) {
                                 stat.opening = true;
                             } else {
@@ -142,10 +133,10 @@ function cleanup () {
     clearInterval(statmon);
 	var i;
 	var pins = [];
-	for (i=0; i<config.door.length; i++) {
-		pins.push(gpio.close(config.door[i].trigger));
-		pins.push(gpio.close(config.door[i].up));
-		pins.push(gpio.close(config.door[i].down));
+	for (i=0; i<config.doors.length; i++) {
+		pins.push(gpio.close(config.doors[i].pins.trigger));
+		pins.push(gpio.close(config.doors[i].pins.up));
+		pins.push(gpio.close(config.doors[i].pins.down));
 	}
 	q.all(pins).then(process.exit);
 }
