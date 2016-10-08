@@ -19,11 +19,9 @@ for (i=0; i<config.doors.length; i++) {
 }
 
 // Configure the web app
-app.configure(function(){
-	app.use(app.router);
-	app.use(express.static(__dirname + '/www'));
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+app.use(app.router);
+app.use(express.static(__dirname + '/www'));
+app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 
 // The api call to trigger door open/close
 app.post('/api/trigger/:id', function (req, res) {
